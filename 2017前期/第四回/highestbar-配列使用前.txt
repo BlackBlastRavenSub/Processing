@@ -1,0 +1,44 @@
+int Inputspeed;
+int bar1 [] =new int[];//Inputspeed,Bar_X,Bar_wide,Bar_high,Bar_Color
+  void setup() {
+    size(400, 400);
+    noStroke();
+    fill(#000000);  
+    Inputspeed=6;
+  }
+//}
+Bars bar1=new Bars();
+void draw() {
+  background(#ffffff);
+  
+  bar1.drawing();
+}
+class Bars {
+  boolean Goup=true;
+  int Moveway=-Inputspeed;//バーの移動スピード
+  int Bar_X=0;//バーのX座標
+  int Bar_wide=10;//バーの幅
+  int Bar_high=-height;//バーの現在の高さ
+  int Bar_Color=#000000;//バーの色
+  void Bars() {
+    fill(Bar_Color);
+  }
+  void drawing() {
+    rect(Bar_X, height, Bar_wide, Bar_high);
+    if (Goup=true && Bar_high>0) {//バーが上昇中
+      Moveway=Moveway;
+      Goup=true;
+    } else if (Goup=true && Bar_high==0) {//バーが天井に接触
+      Moveway=-Moveway;
+      Goup=false;
+    } else if (Goup=false && Bar_high<height) {//バーが下降中
+      Moveway=Moveway;
+      Goup=false;
+    } else if (Goup=false && Bar_high==height) {//バーが地面に接触
+      Moveway=-Moveway;
+      Goup=true;
+    } else {//エラー
+    }
+    Bar_high=Bar_high+Moveway;
+  }
+}

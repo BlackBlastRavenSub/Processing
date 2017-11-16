@@ -1,0 +1,908 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>コンピュータプログラミングI（４） (25)</title>
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="content-script-type" content="text/javascript">
+<meta name="font-size-adjustment" content="-1">
+<link rev="made" href="mailto:">
+<link rel="stylesheet" type="text/css" href="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/slidy.css" media="screen, projection, print">
+<!-- <script src="./js/prototype.js" type="text/javascript"></script> -->
+<!-- <script src="./js/scriptaculous.js" type="text/javascript"></script>  -->
+<script src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/slidy.js" type="text/javascript"></script> 
+</head>
+<body style="visibility: visible; font-size: 18pt;" class=" single_slide"><div class=" slidy_toc hidden"><div class=" toc-heading">Table of Contents</div>1. <a href="#%281%29">コンピュータプログラミングI（４）
+  条件判定
+</a><br>2. <a href="#%282%29">このスライドの使い方</a><br>3. <a href="#%283%29">
+  本日のゴール
+</a><br>4. <a href="#%284%29">
+  復習: ifブロックの文法
+</a><br>5. <a href="#%285%29">
+  test(条件式)の書き方
+</a><br>6. <a href="#%286%29">
+  例題: ウィンドウの左半分と右半分でボールの色を変える
+</a><br>7. <a href="#%287%29">コンピュータプログラミングI（４）(7)</a><br>8. <a href="#%288%29">
+  例題: ウィンドウの端に行くと跳ね返るボール
+</a><br>9. <a href="#%289%29">コンピュータプログラミングI（４）(9)</a><br>10. <a href="#%2810%29">
+  例題: 重力と反射
+</a><br>11. <a href="#%2811%29">コンピュータプログラミングI（４）(11)</a><br>12. <a href="#%2812%29">
+  練習(4-1)
+</a><br>13. <a href="#%2813%29">
+  二重のifブロック
+</a><br>14. <a href="#%2814%29">
+  条件判定の「かつ」／「または」
+</a><br>15. <a href="#%2815%29">
+  「かつ」や「または」などの意味を持つ演算子
+</a><br>16. <a href="#%2816%29">
+  演算子の優先順位（教科書 p.202） 
+</a><br>17. <a href="#%2817%29">
+  演算子の使い方に関する よくある間違い
+</a><br>18. <a href="#%2818%29">
+  例題: 図形の内か外かの判定（教科書 pp.69-72）
+</a><br>19. <a href="#%2819%29">コンピュータプログラミングI（４）(19)</a><br>20. <a href="#%2820%29">
+  練習(4-2): マウスが図形の内側か外側か判定（１）
+</a><br>21. <a href="#%2821%29">
+  練習(4-3): 移動している図形の内側か外側か判定
+</a><br>22. <a href="#%2822%29">
+  複数の条件に分岐するifブロック（教科書 pp.66-67）
+</a><br>23. <a href="#%2823%29">
+  練習(4-4)
+</a><br>24. <a href="#%2824%29">
+  forループとifブロックの組み合わせ
+</a><br>25. <a href="#%2825%29">
+  演習問題
+</a><br>26. <a href="#%2826%29">
+  演習問題
+</a><br>27. <a href="#%2827%29">コンピュータプログラミングI（４）(27)</a></div>
+
+<div class="slide first-slide hidden" id="startpage">
+<h1>コンピュータプログラミングI（４）<br>
+  条件判定
+</h1>
+<p>
+  June 29, 2017
+</p>
+<p>
+  Nakajima, Yajima<br>
+  Iwai, Tatsuta<br>
+  Kakizaki, Ikeda<br>
+</p>
+
+<br><br></div>
+
+<div class="slide hidden" name="help" id="help">
+<h1>このスライドの使い方</h1>
+
+<p>テキスト等がはみ出した場合は、フォントサイズを小さくして調整する。
+「S」 キーで小さく、「B」 キーで大きくなる。また、
+下記のキーボード操作が使用できる。（一部キー操作は IE のみ対応）</p>
+
+<small>
+<table>
+<tbody><tr>
+<th>「←」 or 「Page Up」</th>
+<td>前のスライドに戻る</td>
+</tr>
+<tr>
+<th>「→」 or 「Page Down」 or「スペース」</th>
+<td>次のスライドに進む</td>
+</tr>
+
+<tr>
+<th>「Home」 and 「End」</th>
+<td>先頭（Home）または最後（End）のスライドへ移動</td>
+</tr>
+<tr>
+<th>「C」 or 「contents?」 をクリック</th>
+<td>スライド一覧の表示</td>
+</tr>
+<tr>
+<th>「F11」 or 「Ctrl+Shift+F (Win)」, 「Cmd+Shift+F (Mac)」</th>
+<td>フルスクリーン表示と通常表示の切り替え</td>
+
+</tr>
+<tr>
+<th>「F」</th>
+<td>フッタの表示と非表示の切り替え</td>
+</tr>
+<tr>
+<th>「A」</th>
+<td>全スライド表示に切替 (印刷時に使う)</td>
+</tr>
+<tr>
+<th>「S」「-」／「B」「+」</th>
+<td>フォントサイズの大（B） 小（S）</td>
+
+</tr>
+</tbody></table>
+</small>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  本日のゴール
+</h1>
+<ul>
+  <li>
+    「もし○○ならば、XXXXする　さもなければ....」のような、
+    ifブロックによる条件分岐の方法を理解する
+    <ul>
+      <li> 前回の内容: マウスのボタンによって動作を変化させるプログラム</li>
+      <li> 変数の値を調べて、ある条件にあてはまったときに命令を実行する方法</li>
+      <li> 条件の書き方と、複数の条件を組み合わせた複雑な書き方</li>
+  
+</ul>
+</li></ul><br><br></div>
+
+<div class="slide hidden">
+<h1>
+  復習: ifブロックの文法
+</h1>
+
+<p>
+<span class="imp">「もし
+○○
+であればXXXXする」</span>という処理を記述するために、if文を使う
+</p>
+
+<pre>if (test) {
+  条件を満たしたときの処理の中身
+}
+</pre>
+
+<p>
+「test」の部分には、
+ <a href="http://www.mlab.im.dendai.ac.jp/programming/intro/lesson02.html#%2823%29">関係演算子</a>
+ を使った式を記述する．testがtrue（成り立っている）であれば{}内を実行する．
+ testがfalse（成り立っていない）であれば{}内は実行されない
+</p>
+
+<p>
+また<span class="imp">「もし
+○○
+であればXXXXする　そうでなければYYYYする」</span>という記述もできる
+</p>
+
+<pre>if (test) {
+  条件を満たしたときの処理の中身
+}
+else {
+  条件を満たさなかったときの処理の中身
+}
+</pre>
+
+<p>
+※
+for文と同様に、
+「中身」が1つの文のときは中カッコ ({, }) を省略できる
+
+</p>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  test(条件式)の書き方
+</h1>
+
+<p>
+例
+</p>
+
+<pre>if (x &gt; 0){
+  ellipse(x, y, 10, 10);
+}
+</pre>
+<pre>if (x &gt; 0){ 
+  fill(255, 0, 0);
+}else{
+  fill(255, 255, 255);
+}
+</pre>
+
+<p>
+条件の式を計算して、その結果を求める
+</p>
+
+<p>
+この例では、プログラムの実行中にこのifブロックの時点での変数xを調べる
+</p>
+<ul>
+  <li>xが0より大きかったとき -&gt; true（条件が成り立つ）</li>
+  <li>xが0または0より小さかったとき -&gt; false（条件が成り立たない）</li>
+</ul>
+
+<p>
+<span class="imp">
+if文は、testの計算結果がtrueかfalseかによって
+行う処理を変えることができる
+</span>
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  例題: ウィンドウの左半分と右半分でボールの色を変える
+</h1>
+
+<pre>int x;
+void setup() {
+  size(480, 120);
+  noStroke();
+  fill(0, 0, 0);
+  x = 20;
+}
+
+void draw() {
+  x += 1;
+<span class="imp">  if (x &lt;= 240){
+    fill(220, 120, 120);
+  }else{
+    fill(120, 120, 220);</span>
+  }
+  
+  background(255, 255, 255);
+  ellipse(x, 60, 40, 40);
+}
+</pre>
+
+<ul>
+  <li>ifブロックで、円の座標xと数値を比較し以下のことを行う
+    <ul>
+      <li>xが240以下であれば、色を赤にする
+      </li>
+      <li>そうでなければ、色を青にする
+      </li>
+  
+</ul>
+
+</li></ul><br><br></div>
+
+
+<div class="slide hidden">
+<img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/border240.png">
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  例題: ウィンドウの端に行くと跳ね返るボール
+</h1>
+
+<pre>int x;
+<u>int speed;</u>
+void setup() {
+  size(480, 120);
+  noStroke();
+  fill(0, 0, 0);
+  x = 20;
+  speed = 1;
+}
+
+void draw() {
+<span class="imp">  if (x &lt;= 20){
+    speed = 1;     // &lt;-- ウィンドウの左端に着いたら、方向を右にする
+  }
+  if (x &gt;= 460){
+    speed = -1;    // &lt;-- ウィンドウの右端に着いたら、方向を左にする</span>
+  }
+  <u>x += speed;</u>
+  background(255, 255, 255);
+  ellipse(x, 60, 40, 40);
+}
+</pre>
+
+<p>
+<strong>変数speedに注目</strong>
+</p>
+
+<ul>
+  <li>speedは、円の1コマあたりの移動速度を入れるための変数<br>
+    正の値であれば右、負の値であれば左に進む
+  </li>
+  <li>ifブロックで、円の座標xと数値を比較し以下のことを行う
+    <ul>
+      <li>xが20以下であれば、左端に着いたとみなして、方向を右にする
+      </li>
+      <li>xが460以上であれば、右端に着いたとみなして、方向を左にする
+      </li>
+  
+</ul>
+
+</li></ul><br><br></div>
+
+<div class="slide hidden">
+<img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/boundingBall.png">
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  例題: 重力と反射
+</h1>
+
+<p>
+先週の重力によって落下するボールのアニメーションを改造し、
+地面に着いたら跳ね返るようなアニメーションにする<br>
+</p>
+
+
+<pre>float y;             //  &lt;-- ボールのy座標
+float speed;         //  &lt;-- ボールの速度
+float gravity;       //  &lt;-- 重力加速度
+
+void setup() {
+  size(200, 480);
+  noStroke();
+  fill(0, 0, 0);
+  y = 0;
+  speed = 0;
+  gravity = 9.8 / 60;
+}
+
+void draw() {
+<span class="imp">  if (y &gt;= 460) {    // &lt;-- ボールが地面に着いたら、反射係数 0.8 で跳ね返る
+    speed = speed * -0.8;
+    y = 460;
+  }</span>
+  speed += gravity;
+  y += speed;
+  background(255, 255, 255);
+  ellipse(100, y, 40, 40);
+}
+</pre>
+<br><br></div>
+
+<div class="slide hidden">
+<img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/fallBoundingBall.png">
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  練習(4-1)
+</h1>
+
+<p>
+斜め上に打ち上げるボールのアニメーションを行う下のプログラムを改造し、
+地面と左右の壁にボールがあたると跳ね返るようにしてみよう<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/obliquelyUpAndBounce_sample/">サンプル</a>
+]
+</p>
+<pre>float x;
+float y; 
+float xSpeed;
+float ySpeed;       
+float gravity;   
+
+void setup() {
+  size(480, 480);
+  noStroke();
+  fill(0, 0, 0);
+  x = 0;
+  y = 480;
+  xSpeed = 3;
+  ySpeed = -12;
+  gravity = 9.8 / 60; 
+}
+
+void draw() {
+  x += xSpeed;
+  ySpeed += gravity;  
+  y += ySpeed;         
+
+  background(255, 255, 255);
+  ellipse(x, y, 40, 40);
+}
+</pre>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  二重のifブロック
+</h1>
+
+<p>
+ifブロックを二重、三重に書くこともできる
+</p>
+
+<pre>if (x &gt; 0){                                 //&lt;-- x &gt; 0 がtrueならば
+  if (y &gt; 0){
+    //xが0より大きくて、yが0より大きいときの処理
+  }else{
+    //xが0より大きくて、yが0以下のときの処理
+  }
+}else{                                       //&lt;-- x &gt; 0 がfalseならば
+  if (y &gt; 0){
+    //xが0以下で、yが0より大きいときの処理
+  }else{
+    //xが0以下で、yが0以下のときの処理
+  }
+}
+</pre>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  条件判定の「かつ」／「または」
+</h1>
+
+<p>
+複数の条件を組み合わせて、より複雑な条件式を書くことができる<br>
+2つの条件式を組み合わせるために、
+「かつ」や「または」などの意味を持つ演算子がある
+</p>
+
+<table>
+<tbody><tr>
+<td>&amp;&amp;</td>
+<td>「〜かつ〜」</td>
+</tr>
+<tr>
+<td>||</td>
+<td>「〜または〜」</td>
+</tr>
+<tr>
+<td>!</td>
+<td>「〜ではない」</td>
+</tr>
+</tbody></table>
+
+<p>
+変数xとyがある範囲にあるかどうかを判定する条件式の例
+</p>
+
+<pre>if (x &gt; 0 &amp;&amp; y &gt; 0)      &lt;-- xが0より大きく、かつyが0より大きい
+
+if (x &gt; 0 || y &gt; 0)      &lt;-- xが0より大きい、またはyが0より大きい
+
+if (0 &lt;= x &amp;&amp; x &lt;= 100)  &lt;-- xが0以上、かつxが100以下
+
+if (20 &lt;= x &amp;&amp; x &lt;= 80 || 30 &lt;= y &amp;&amp; y &lt;= 100)
+  ....                   &lt;-- xが20以上80以下、またはyが30以上100以下
+
+if ((20 &lt;= x || x &lt;= 80) &amp;&amp; (30 &lt;= y || y &lt;= 100))
+  ....                   &lt;-- xが20以上または80以下、かつyが30以上または100以下
+</pre>
+
+<p>
+||より&amp;&amp;が優先される（先に計算される）<br>
+異なる順序で計算する場合はカッコを使う<br>
+! (〜ではない) は、&amp;&amp;よりもさらに優先される
+</p>
+
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  「かつ」や「または」などの意味を持つ演算子
+</h1>
+
+<p>
+以下の演算子を論理演算子と呼ぶ．<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/lesson02.html#%2823%29">関係演算子</a>の計算結果，
+boolean（trueかfalseのみを保存するデータ型）型に対して計算を行う演算子である．
+</p>
+
+<table>
+<tbody><tr>
+<td>&amp;&amp;</td>
+<td>「〜かつ〜」</td>
+</tr>
+<tr>
+<td>||</td>
+<td>「〜または〜」</td>
+</tr>
+<tr>
+<td>!</td>
+<td>「〜ではない」</td>
+</tr>
+</tbody></table>
+
+<p>
+具体的には以下のような計算結果となる．
+</p>
+
+<img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/andornot.png">
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  演算子の優先順位（教科書 p.202） 
+</h1>
+
+<p>表: 演算子の優先順位</p>
+<table style="border:1px solid #808080"><tbody><tr><td style="font-weight:bold">　　</td><td>記号</td><td>例
+</td></tr><tr><td style="font-weight:bold">カッコ</td><td>()</td><td>a * (b + c)
+</td></tr><tr><td style="font-weight:bold">単項</td><td>++ -- !</td><td>a++ --b !c
+</td></tr><tr><td style="font-weight:bold">乗除</td><td>* / %</td><td>a * b
+</td></tr><tr><td style="font-weight:bold">加減</td><td>+ -</td><td>a + b
+
+</td></tr><tr><td style="font-weight:bold">関係</td><td>&gt; &lt; &lt;= &gt;=</td><td>if (a &gt; b)
+</td></tr><tr><td style="font-weight:bold">等号</td><td>== !=</td><td>if (a == b)
+</td></tr><tr><td style="font-weight:bold">論理積</td><td>&amp;&amp;</td><td>if (x == y &amp;&amp; a &gt; b)
+
+</td></tr><tr><td style="font-weight:bold">論理和</td><td>||</td><td>if (x == y || a &gt; b)
+</td></tr><tr><td style="font-weight:bold">代入</td><td>= += -= *= /= %=</td><td>a = 44
+</td></tr></tbody></table>
+
+<p>
+上の演算子ほど優先順位が高く（先に計算される）、
+下の演算子ほど優先順位が低い（後に計算される）
+</p>
+
+<p>
+特に +,- より *,/ が優先され、
+|| より &amp;&amp; が優先されることは頭に入れておこう
+</p>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  演算子の使い方に関する よくある間違い
+</h1>
+
+<ul>
+  <li>xが0から100の範囲にあるかどうかを表す条件として
+    以下のように書くのは誤り
+
+<pre>if (0 &lt;= x &lt;= 100){
+  ....
+}
+</pre>
+
+正しくは「xが0以上、かつxが100以下」と言い換えて、
+
+<pre>if (0 &lt;= x &amp;&amp; x &lt;= 100){
+  ....
+}
+</pre>
+
+と書く
+  </li>
+
+  <li>「xがaまたはbに等しい」ということを表すために
+    以下のように書くのも誤り
+
+<pre>if (x == a || b){
+  ....
+}
+</pre>
+
+正しくは「xがaに等しい、またはxがbに等しい」と言い換えて、
+<pre>if (x == a || x == b){
+  ....
+}
+</pre>
+と書く
+  </li>
+</ul>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  例題: 図形の内か外かの判定（教科書 pp.69-72）
+</h1>
+
+<ul>
+  <li>座標x, yが、左上の点を(20, 20)とする幅200, 高さ100の長方形の内側か
+    外側か判定する<br>
+    --&gt; 「xが20以上220以下、かつyが20以上120以下」であれば内側
+  <pre>if (x &gt;= 20 &amp;&amp; x &lt;= 220 &amp;&amp; y &gt;= 20 &amp;&amp; y &lt;= 120){
+    長方形の内側
+}else{
+    長方形の外側
+}
+</pre>  
+  </li>
+  <li>座標x, yが、中心の点を(0, 0)とする半径50の円の内側か
+    を判定する<br>
+    --&gt; 「x<sup>2</sup> + y<sup>2</sup> 」を計算し、50<sup>2</sup>よりも小さければ内側、大きければ外側、等しければ円の周上
+  </li>
+  <li>座標x, yが、中心の点を(320, 320)とする半径50の円の内側か
+    を判定する<br>
+    --&gt; 「(x-320)<sup>2</sup> + (y-320)<sup>2</sup> 」を計算し、50<sup>2</sup>よりも小さければ内側、大きければ外側、等しければ円の周上
+  <pre>if ((x - 320) * (x - 320) + (y - 320) * (y - 320) &lt;= 50 * 50){
+    円の内側
+}else{
+    円の外側
+}
+</pre>
+  </li>
+
+</ul>
+
+<br><br></div>
+
+<div class="slide hidden">
+<img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%94%EF%BC%89%20%2825%29_files/insideOrOutside.png">
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  練習(4-2): マウスが図形の内側か外側か判定（１）
+</h1>
+
+<ol>
+<li>下のプログラムをベースに、マウスカーソルが図形の内側に入ったとき、図形の色が変化するアニメーションを行おう<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/twoShapeAndCatch_sample/">サンプル</a>
+]
+
+</li>
+<li>次に、これを少し改造して、
+図形の上でマウスのボタンを押したときだけ色が変わるようにしてみよう<br>
+ヒント: 変数 mousePressed は、それ自体がboolean型（true（成り立つ）またはfalse（成り立たない）
+の値をとる）である</li>
+</ol>
+
+<pre>void setup() {
+  size(480, 480);
+  noStroke();
+  fill(128, 128, 128);
+}
+
+void draw() {
+  background(255, 255, 255);
+  rect(20, 20, 200, 100);
+  ellipse(320, 320, 100, 100);
+}
+</pre>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  練習(4-3): 移動している図形の内側か外側か判定
+</h1>
+
+<p>
+今度は移動する図形に対して、マウスカーソルが図形の内側か外側か判定して、図形の色を変えてみよう
+<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/movingAndCatch_sample/">サンプル</a>
+]
+</p>
+
+<pre>float x;
+float y;
+float rad;
+
+void setup() {
+  size(480, 480);
+  noStroke();
+  fill(128, 128, 128);
+  rad = 0;
+}
+
+void draw() {
+  background(255, 255, 255);
+  x = 200 * cos(rad) + 210;
+  y = -200 * sin(rad) + 210;
+
+  rect(x, y, 60, 60);
+
+  rad += 0.01;
+}
+</pre>
+
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  複数の条件に分岐するifブロック（教科書 pp.66-67）
+</h1>
+
+<p>
+「AならばXを行い、そうでないときBならばYを行い、そうでないときCならばZを行い...」のように複数の条件によって処理を分けたい<br>
+  --&gt; if - else if - else という書き方を使う
+</p>
+
+<pre>if ( 条件1 ) {
+  処理1
+}else if ( 条件2 ){
+  処理2
+}else if ( 条件3 ){
+  処理3
+}else{
+  上のすべての条件に当てはまらなかったときの処理
+}
+  
+</pre>
+
+<p>
+このifブロックでは、条件1から順に条件を調べていき、
+条件を満たしたらその中身の処理だけを行う<br>
+すべての条件を満たさなかったとき、最後のelseの中身の処理を行う
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  練習(4-4)
+</h1>
+
+<p>
+2つの正方形が重なりあった領域を考える<br>
+(1)2つの正方形が重なっている領域<br>
+(2)左上の正方形の（重なりあっていない）領域<br>
+(2)右下の正方形の（重なりあっていない）領域<br>
+のそれぞれの上にマウスカーソルが来たとき、
+図形すべての色を上の場合に対応させて3色に変化させなさい<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/threeCases_sample/">サンプル</a>
+]
+
+</p>
+
+<pre>void setup() {
+  size(480, 480);
+  noStroke();
+  fill(128, 128, 128, 128);
+}
+
+void draw() {
+  background(255, 255, 255);
+
+  /* fill in here */
+  rect(20, 20, 200, 200);
+  rect(120, 120, 200, 200);
+}
+</pre>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  forループとifブロックの組み合わせ
+</h1>
+
+<p>
+前の回で繰り返し処理を行うforループを学んだ<br>
+forループの中で変化する変数を使って、ifブロックを書くこともできる
+</p>
+
+<p>
+10個 正方形を並べ、左半分と右半分で色を変える
+</p>
+
+<pre>size(480, 120);
+background(255, 255, 255);
+fill(0, 0, 0);
+noStroke();
+
+for (int i = 1; i &lt;= 10; i++) {
+  if (i &lt;= 5){
+    fill(220, 100, 120);
+  }else{
+    fill(120, 100, 220);
+  }
+  rect(i*40, 40, 30, 30);
+}
+</pre>
+
+<br><br></div>
+
+<div class="slide">
+<h1>
+  演習問題
+</h1>
+<ul>
+  <li>提出期限: <span class="imp">2017年7月4日(火) 13:10</span></li>
+
+</ul>
+
+<h3>問題1</h3>
+
+<ol>
+<li>異なった速度で延び縮みするバーをアニメーションで描き、
+さらに、最も高い位置にあるバーを境に背景を塗り分けるようにしなさい<br>
+スケッチ名: highestBar<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/highestBar_sample/">サンプル</a>
+]
+<br>
+<p>
+ヒント: 3つのバーのy座標をそれぞれy1, y2, y3としたとき、
+y1, y2, y3の中から最も高い（座標では小さい値）値を探せば良い<br>
+3つの変数から最小のものを探すifブロックを考えること
+</p>
+</li>
+
+<li>
+「例題: ウィンドウの端に行くと跳ね返るボール」を改造し、
+x軸方向に加えて、y軸方向にも動きを加え、ウィンドウの四隅で跳ね返るボールの
+アニメーションを描くプログラムを作成しなさい<br>
+スケッチ名: xyBouncingBall<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/xyBouncingBall_sample/">サンプル</a>
+]
+</li>
+
+</ol><br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  演習問題
+</h1>
+<ul>
+  <li>提出期限: <span class="imp">2017年7月4日(火) 13:10</span></li>
+
+</ul>
+
+<h3>問題2</h3>
+
+<p>
+前回の演習問題「問題2」の解答例は次のスライドのとおり<br>
+前回のプログラムをベースに、単純往復する正方形を敵とみなし、
+弾丸の当たり判定を行うように改造しなさい<br>
+当たったときに画面の変化を行うこと<br>
+この他、ゲーム風の臨場感を与えるデザインや表現については各自で自由に加えても良い<br>
+スケッチ名: simpleShooting<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<pre>int bulletX;
+int bulletY;
+float enemyX;
+float enemyY;
+float enemyRad;
+
+void setup() {
+  size(480, 480);
+  noStroke();
+  bulletX = 1000;
+  bulletY = 0;
+  enemyX = 400;
+  enemyRad = 0;
+}
+
+void draw() {
+  background(0, 0, 0);
+
+  fill(255, 255, 255);
+  ellipse(mouseX, mouseY, 20, 20);
+  fill(255, 0, 0);
+  triangle(bulletX-8, bulletY-4, bulletX-8, bulletY+4, bulletX+8, bulletY);
+  enemyY = 200 * sin(enemyRad) + 210;
+  fill(255, 255, 255, 180);
+  rect(enemyX, enemyY, 60, 60);
+
+  if (mousePressed) {
+    bulletX = mouseX;
+    bulletY = mouseY;
+  }
+  bulletX += 2;
+  enemyRad+=0.01;
+}
+</pre>
+
+<br><br></div>
+
+
+
+<div class="toolbar" tabindex="0" style="display: block;"><div style="float: right; text-align: right"><span>slide 25/27</span></div><div style="text-align: left"><span style="color: rgb(240, 240, 240);">* </span><a href="http://www.w3.org/Talks/Tools/Slidy2/help/help.html" title="Navigate with mouse click, space bar, Cursor Left/Right, or Pg Up and Pg Dn. Use S and B to change font size.">help?</a> <a href="javascript:w3c_slidy.toggle_table_of_contents()" title="table of contents">contents?</a> </div></div></body></html>
