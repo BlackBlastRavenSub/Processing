@@ -5,88 +5,46 @@ final float vy0max = 15;            // vyの初期値の上限
 final float fps = 60;               // 1秒間あたりのフレーム数
 final float gravity = 9.8 / fps;    // 1フレームあたりの重力加速度
 final float elas = 0.98;            // 反発係数
-final float d = 40;                 // ボールの直径
 final float hueMax = 360.0;         // 色相の最大値
+
+PFont font;
 Ball Ball0;
-Ball Ball1;
-Ball Ball2;
-Ball Ball3;
-Ball Ball4;
-Ball Ball5;
 
 void setup() {
   frameRate(fps);
-  size(480, 480);
+  size(1280, 640);
   noStroke();
   colorMode(HSB, hueMax, 100, 100);
-  fill(0, 0, 0);
+  
+  font = createFont("Osaka",48,true); //フォントを指定
+  textFont(font); 
   
   Ball0=new Ball();
-  Ball1=new Ball();
-  Ball2=new Ball();
-  Ball3=new Ball();
-  Ball4=new Ball();
-  Ball5=new Ball();
-  
 }
 
 void draw() {
-  background(0, 0, 100);
+  if (mousePressed == true){
+    background(0, 0, 100);
+  }else{
+   background(0, 0, 0);
+  }
+  fill(0, 0, 100);
   Ball0.move();
-  Ball1.move();
-  Ball2.move();
-  Ball3.move();
-  Ball4.move();
-  Ball5.move();
+  fill(0,0,0);
+  textSize(100);
+  text("夜だ、視界が悪い！",width/2-550,height/2-150);
+  text("サーチライトを使え！！",width/2-550,height/2);
+  text("by:17FI084,野田翔太郎",width/2-550,height/2+150);
 }
 
 class Ball {
-  float X  =random(d / 2, width - d / 2);;// ボールの中心のx座標
-  float Y  =random(d / 2, height / 5);;// ボールの中心のy座標
-  float VX =random(vx0min, vx0max);;// ボールの速度のx成分
-  float VY =random(vy0min, vy0max);;// ボールの速度のy成分
-  boolean isNeighbor(float x1, float y1, float x2, float y2, float distance) {
-  float dx = x1 - x2;
-  float dy = y1 - y2;
-  return dx * dx + dy * dy < distance * distance;
-}
+  final float d = 150;                 // ボールの直径
+  float X  =mouseX;
+  float Y  =mouseY;
+  float slow =0.05;
   void move() {
-    if (isNeighbor(this.X, this.Y, mouseX, mouseY, d / 2)) {
-    fill(0, 100, 100);
-    catchBall();
-  } else {
-    fill(180, 100, 100);
-    boundBall();
-  }
-    draw(VX,VY);
+    X+=(mouseX-X)*slow;
+    Y+=(mouseY-Y)*slow;
     ellipse(this.X, this.Y, d, d);
-  }
-  void boundBall(){
-    X+= VX;          // ボールが速度ぶん移動する
-    VY += gravity;           // 速度のy成分に重力加速度を加算する
-    Y  += VY;          // ボールが速度ぶん移動する
-    if (X < d / 2) {
-      VX = - VX * elas;
-      X = d / 2;
-    } else if (X > width - d / 2) {
-      VX = - VX  * elas;
-      X = width - d / 2;
-    }
-    if (Y > height - d / 2) {
-      VY = - VY * elas;
-      Y = height - d / 2;
-    } else if (Y < d / 2) {
-      VY = - VY * elas;
-      Y = d / 2;
-    }
-  }
-  void catchBall(){
-    X+=(mouseX-pmouseX);
-    Y+=(mouseY-pmouseY);
-    VX=(mouseX-pmouseX);
-    VY=(mouseY-pmouseY);
-  }
-  void draw(float vx, float vy) {
-    fill(((sqrt(vx * vx + vy * vy) * 16) % hueMax), 100, 100);
   }
 }
