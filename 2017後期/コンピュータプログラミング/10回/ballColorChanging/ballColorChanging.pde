@@ -16,7 +16,7 @@ void setup() {
   colorMode(HSB, hueMax, 100, 100);
   fill(0, 0, 0);
   Ball0=new Ball();
-  Ball0.setX(random(Ball0.d / 2, width - Ball0.d / 2));     // ボールの中心のx座標
+  Ball0.setX(random(Ball0.d/ 2, width - Ball0.d / 2));     // ボールの中心のx座標
   Ball0.setY(random(Ball0.d / 2, height / 5));     // ボールの中心のy座標
   Ball0.setVX(random(vx0min, vx0max));           // ボールの速度のx成分
   Ball0.setVY(random(vy0min, vy0max));          // ボールの速度のy成分
@@ -26,7 +26,7 @@ void setup() {
 void draw() {
   background(0, 0, 100);
   Ball0.move();
-  Ball0.draw(Ball0.VX, Ball0.VY);
+  Ball0.draw();
   ellipse(Ball0.X, Ball0.Y, Ball0.d, Ball0.d);
 }
 
@@ -36,6 +36,9 @@ class Ball {
   float VX =0;
   float VY =0;
   float d ;
+  float bounds;
+  float Hue;
+  boolean oneshot;
   void setX(float X) {
     this.X = X;
   }
@@ -58,20 +61,33 @@ class Ball {
     if (X < d / 2) {
       VX = - VX * elas;
       X = d / 2;
+      bounds++;
     } else if (X > width - d / 2) {
       VX = - VX  * elas;
       X = width - d / 2;
+      bounds++;
     }
     if (Y > height - d / 2) {
       VY = - VY * elas;
       Y = height - d / 2;
+      bounds++;
     } else if (Y < d / 2) {
       VY = - VY * elas;
       Y = d / 2;
+      bounds++;
     }
-    System.out.println("X座標は"+X+"."+"Y座標は"+Y+"."+"Xの加速度は"+VX+"."+"Yの加速度は"+VY+"."+"ボールの直径は"+d);
+    bounds%=3;
+    if(bounds==0&&oneshot){
+    Hue+=60;
+    Hue%=360;
+    oneshot=false;
+    }
+    if(bounds==1){
+      oneshot=true;
+    }
+    System.out.println("X座標は"+X+"."+"Y座標は"+Y+"."+"Xの加速度は"+VX+"."+"Yの加速度は"+VY+"."+"ボールの直径は"+d+"."+bounds+"."+Hue);
   }
-  void draw(float vx, float vy) {
-    fill(((sqrt(vx * vx + vy * vy) * 16) % hueMax), 100, 100);
+  void draw() {
+    fill(Hue, 100, 100);
   }
 }

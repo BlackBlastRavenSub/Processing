@@ -1,10 +1,10 @@
 final float vx0min = -7;            // vxの初期値の下限
-final float vx0max = 5;             // vxの初期値の上限
+final float vx0max = 3;             // vxの初期値の上限
 final float vy0min = 4;             // vyの初期値の下限
-final float vy0max = 15;            // vyの初期値の上限
+final float vy0max = 8;            // vyの初期値の上限
 final float fps = 60;               // 1秒間あたりのフレーム数
 final float gravity = 9.8 / fps;    // 1フレームあたりの重力加速度
-final float elas = 0.98;            // 反発係数
+final float elas = 0.60;            // 反発係数
 final float D = 40;                 // ボールの直径
 final float hueMax = 360.0;         // 色相の最大値
 Ball Ball0;
@@ -36,6 +36,7 @@ class Ball {
   float VX =0;
   float VY =0;
   float d ;
+  boolean gravityClash=false;
   void setX(float X) {
     this.X = X;
   }
@@ -52,19 +53,27 @@ class Ball {
     this.d = D;
   }
   void move() {
+    if(gravityClash==true){
     X  += VX;          // ボールが速度ぶん移動する
-    VY += gravity;           // 速度のy成分に重力加速度を加算する
+    VX += gravity;     // 速度のy成分に重力加速度を加算する
     Y  += VY;          // ボールが速度ぶん移動する
+    }else {
+    X  += VX;          // ボールが速度ぶん移動する
+    VY += gravity;     // 速度のy成分に重力加速度を加算する
+    Y  += VY;          // ボールが速度ぶん移動する
+    }
     if (X < d / 2) {
       VX = - VX * elas;
       X = d / 2;
     } else if (X > width - d / 2) {
       VX = - VX  * elas;
       X = width - d / 2;
+      gravityClash=false;
     }
     if (Y > height - d / 2) {
       VY = - VY * elas;
       Y = height - d / 2;
+      gravityClash=true;
     } else if (Y < d / 2) {
       VY = - VY * elas;
       Y = d / 2;
