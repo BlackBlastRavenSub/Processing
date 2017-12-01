@@ -1,4 +1,4 @@
-final float vx0min = -7;            // vxの初期値の下限 //<>//
+final float vx0min = -7;            // vxの初期値の下限
 final float vx0max = 5;             // vxの初期値の上限
 final float vy0min = 4;             // vyの初期値の下限
 final float vy0max = 15;            // vyの初期値の上限
@@ -40,10 +40,9 @@ class Ball {
   float VX =0;
   float VY =0;
   float d=50 ;
-  float bounds=0;
   int totalBounds;
   float Hue;
-  boolean oneshot;
+  boolean oneshot=false;
 
   Ball() {
     this.X = random(this.d/ 2, width - this.d / 2);
@@ -78,40 +77,43 @@ class Ball {
     if (this.X < this.d / 2) {
       this.VX = - this.VX * elas;
       this.X = this.d / 2;
-      bounds++;
       totalBounds++;
     } else if (this.X > width - this.d / 2) {
       this.VX = - this.VX  * elas;
       this.X = width - this.d / 2;
-      bounds++;
       totalBounds++;
     }
     if (this.Y > height - this.d / 2) {
       this.VY = - this.VY * elas;
       this.Y = height - this.d / 2;
-      bounds++;
       totalBounds++;
     } else if (this.Y < this.d / 2) {
       this.VY = - this.VY * elas;
       this.Y = this.d / 2;
-      bounds++;
       totalBounds++;
     }
-    bounds%=3;
-    if (bounds==0&&oneshot) {
+    if (isNeighbor(this.X, this.Y, mouseX, mouseY, d / 2)&&oneshot==false) {
+      oneshot=true;
+    }
+    if (!isNeighbor(this.X, this.Y, mouseX, mouseY, d / 2)&&oneshot==true) {
+      oneshot=false;
+      
       Hue+=60;
       Hue%=360;
-      oneshot=false;
       if (MAXBALLNUMBER>currentBallNumber) {
         currentBallNumber++;
         d=d*2/3;
         ball[currentBallNumber-1]=new Ball(this.X, this.Y, this.VX, -5,this.d,this.Hue);//100, 100, 5, 5,this.Hue
       }
     }
-    if (bounds==1) {
-      oneshot=true;
-    }
     fill(Hue, 100, 100);
     System.out.println("X座標は"+this.X+"."+"Y座標は"+this.Y+"."+"Xの加速度は"+this.VX+"."+"Yの加速度は"+this.VY+"."+"ボールの直径は"+this.d+"."+"ボールの色は"+this.Hue+",100,100"+"."+"ボールの合計bound回数は"+this.totalBounds);
   }
+  
+  
+  boolean isNeighbor(float x1, float y1, float x2, float y2, float distance) {
+  float dx = x1 - x2;
+  float dy = y1 - y2;
+  return dx * dx + dy * dy < distance * distance;
+}
 }
