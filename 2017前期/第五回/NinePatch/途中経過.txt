@@ -1,0 +1,35 @@
+int x=0;
+int y=0;
+int number_x=5;
+int number_y=5;
+int rect_width;
+int rect_height;
+boolean MAX=true;
+void setup() {
+  size(400, 400);
+  noStroke();
+  //fill(#000000);  
+  //background(random(0,256),random(0,256),random(0,256));
+  rect_width=width/number_x;
+  rect_height=height/number_y;
+  background(#ffffff);
+}
+void draw() {
+  vertica:while(y<height){
+  sideline:while (x<width) {
+    fill(random(0, 256), random(0, 256), random(0, 256));
+    rect(x, y, rect_width, rect_height);
+    x=x+rect_width;
+    delay(500);
+    return;
+    //break vertica;
+  }
+    x=0;
+    y=y+rect_height;
+    return;
+}
+  background(#ffffff);
+  delay(500);
+  x=0;
+  y=0;
+}

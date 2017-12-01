@@ -1,0 +1,44 @@
+div.slide {
+    margin-left: 1em;
+}
+strong {
+    color: red;
+}
+h1 strong {
+    color: blue;
+}
+div.applet {
+    margin: auto 2ex auto 2ex;
+    text-align: center;
+}
+div.applet applet {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+div.canvas {
+    text-align: center;
+}
+div.canvas canvas {
+    margin-left: auto;
+    margin-right: auto;
+    border-style: solid;
+    border-width: thin;
+    border-color: black;
+}
+iframe {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    padding-left: 1em;
+    padding-right: 0.2em;
+    border-style: solid;
+    border-left-width: 1em;
+    border-top-width: thin;
+    border-right-width: thin;
+    border-bottom-width: thin;
+    border-color: #95ABD0;
+    color: #00428C;
+    background-color: #E4E5E7;
+}

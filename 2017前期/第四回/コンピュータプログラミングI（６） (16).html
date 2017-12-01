@@ -1,0 +1,518 @@
+<!--?xml version="1.0" encoding="UTF-8"?-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>コンピュータプログラミングI（６） (16)</title>
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="content-script-type" content="text/javascript">
+<meta name="font-size-adjustment" content="-1">
+<link rev="made" href="mailto:">
+<link rel="stylesheet" type="text/css" href="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/slidy.css" media="screen, projection, print">
+<!-- <script src="./js/prototype.js" type="text/javascript"></script> -->
+<!-- <script src="./js/scriptaculous.js" type="text/javascript"></script>  -->
+<script src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/slidy.js" type="text/javascript"></script> 
+</head>
+<body style="visibility: visible; font-size: 18pt;" class=" single_slide"><div class=" slidy_toc hidden"><div class=" toc-heading">Table of Contents</div>1. <a href="#%281%29">コンピュータプログラミングI（６）
+  キーボード入力
+</a><br>2. <a href="#%282%29">このスライドの使い方</a><br>3. <a href="#%283%29">
+  本日のゴール
+</a><br>4. <a href="#%284%29">
+  キーボードからの入力（教科書 pp.73-76）
+</a><br>5. <a href="#%285%29">
+  練習(6-1)
+</a><br>6. <a href="#%286%29">
+  どのキーが押されたか
+</a><br>7. <a href="#%287%29">
+    どのキーが押されたか（教科書 p.75）
+</a><br>8. <a href="#%288%29">
+  練習(6-2)
+</a><br>9. <a href="#%289%29">
+  特殊なキーの検出（教科書 p.76）
+</a><br>10. <a href="#%2810%29">
+  練習(6-3)
+</a><br>11. <a href="#%2811%29">
+  テキストの表示（教科書 p.74）
+</a><br>12. <a href="#%2812%29">
+  テキストの表示（教科書 p.74）
+</a><br>13. <a href="#%2813%29">
+  練習(6-4)
+</a><br>14. <a href="#%2814%29">
+  演習問題
+</a><br>15. <a href="#%2815%29">
+  演習問題
+</a><br>16. <a href="#%2816%29">
+  演習問題
+</a><br>17. <a href="#%2817%29">
+  演習問題
+</a></div>
+
+<div class="slide hidden first-slide" id="startpage">
+<h1>コンピュータプログラミングI（６）<br>
+  キーボード入力
+</h1>
+<p>
+  July 13, 2017
+</p>
+<p>
+  Nakajima, Yajima<br>
+  Iwai, Tatsuta<br>
+  Kakizaki, Ikeda<br>
+</p>
+
+<br><br></div>
+
+<div class="slide hidden" name="help" id="help">
+<h1>このスライドの使い方</h1>
+
+<p>テキスト等がはみ出した場合は、フォントサイズを小さくして調整する。
+「S」 キーで小さく、「B」 キーで大きくなる。また、
+下記のキーボード操作が使用できる。（一部キー操作は IE のみ対応）</p>
+
+<small>
+<table>
+<tbody><tr>
+<th>「←」 or 「Page Up」</th>
+<td>前のスライドに戻る</td>
+</tr>
+<tr>
+<th>「→」 or 「Page Down」 or「スペース」</th>
+<td>次のスライドに進む</td>
+</tr>
+
+<tr>
+<th>「Home」 and 「End」</th>
+<td>先頭（Home）または最後（End）のスライドへ移動</td>
+</tr>
+<tr>
+<th>「C」 or 「contents?」 をクリック</th>
+<td>スライド一覧の表示</td>
+</tr>
+<tr>
+<th>「F11」 or 「Ctrl+Shift+F (Win)」, 「Cmd+Shift+F (Mac)」</th>
+<td>フルスクリーン表示と通常表示の切り替え</td>
+
+</tr>
+<tr>
+<th>「F」</th>
+<td>フッタの表示と非表示の切り替え</td>
+</tr>
+<tr>
+<th>「A」</th>
+<td>全スライド表示に切替 (印刷時に使う)</td>
+</tr>
+<tr>
+<th>「S」「-」／「B」「+」</th>
+<td>フォントサイズの大（B） 小（S）</td>
+
+</tr>
+</tbody></table>
+</small>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  本日のゴール
+</h1>
+<ul>
+  <li>
+    キーボードの入力を知るための方法を学ぶ
+    <ul>
+      <li>キーボードからの入力</li>
+      <li>charデータ型</li>
+      <li>テキストの表示</li>
+    </ul>
+  </li>
+</ul>
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  キーボードからの入力（教科書 pp.73-76）
+</h1>
+
+<pre>if (keyPressed == true){
+    ... //どれかキーが押されたらここを実行
+}
+</pre>
+
+<p>
+keyPressed：どれかキーが押されていればtrue，
+押されていなければfalseが入っているbooleanデータ型の組み込み変数
+（Processing側で自動的に用意されている変数）
+</p>
+
+<p>
+keyPressed自体がbooleanデータ型であるので，以下のように書くこともできる
+</p>
+
+<pre>if (keyPressed){
+    ... //どれかキーが押されたらここを実行
+}
+</pre>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  練習(6-1)
+</h1>
+
+<p><img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/sixthexercise1.png">
+</p>
+
+<p>
+キーを押すと，線が画面を埋めていくプログラムを書こう
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/sixthexercise1/">サンプル</a>
+]
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  どのキーが押されたか
+</h1>
+
+<p>
+keyという組み込み変数に押されたキーの文字が自動的に入る
+</p>
+
+<p><img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/key.png">
+</p>
+
+<pre>//押されたキーを表示する
+void draw(){
+    print(key);
+}
+</pre>
+
+<p>
+上記のプログラムでは最後に押されたキーが常に表示されていく．<br>
+キーが押されている間だけ表示するには以下のようになる．
+</p>
+
+<pre>//押されたキーを表示する
+void draw(){
+    if (keyPressed)
+    	print(key);
+}
+</pre>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+    どのキーが押されたか（教科書 p.75）
+</h1>
+
+<p>
+もしキーが押されて，さらに，そのキーがxだったら表示するには？
+</p>
+
+<pre>char charx = 'x';
+
+void draw(){
+    if (keyPressed){
+        if (key == charx)
+        {
+    	    print(key);
+        }
+    }
+}
+</pre>
+
+<p>
+文字を保存するためのcharデータ型変数を作り，そこに文字'x'を保存する．
+それが押されたキー（key）と等しいか，関係演算子（==）で計算する
+</p>
+
+<p>
+charデータ型の変数を作らずにifの()内に直接'x'と書くこともできる．
+</p>
+
+<pre>void draw(){
+    if (keyPressed){
+        if (key == 'x')
+        {
+    	    print(key);
+        }
+    }
+}
+</pre>
+
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  練習(6-2)
+</h1>
+
+<p><img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/sixthexercise1.png">
+</p>
+
+<p>
+練習(6-1)を改良し，cキーを押すと線が画面を埋めていき，oキーを押すと線が減っていくプログラムを書こう
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/sixthexercise2/">サンプル</a>
+]
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  特殊なキーの検出（教科書 p.76）
+</h1>
+
+<p>
+キーボードのシフトやコントロール，矢印キーは文字ではない．Processingでは以下の手順で押されたかを検出できる．
+</p>
+
+<pre>//キーボードの左矢印キーが押されたか検出する例
+if (keyPressed &amp;&amp; key == CODED){ //キーが押され，かつ，キーが特殊キー（CODED）かどうか
+	if (keyCode == LEFT){ //押された特殊キーが左矢印キーかどうか
+	    ...
+	}
+}
+</pre>
+
+<p>
+keyCodeによって検出できる他のキーは以下を参照
+</p>
+
+<p>
+ <a href="http://processing.org/reference/keyCode.html">http://processing.org/reference/keyCode.html</a>
+</p>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  練習(6-3)
+</h1>
+
+<p>
+矢印キーで四角を動かそう．四角は画面外に出ないようにすること．
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/sixthexercise3/">サンプル</a>
+]
+</p>
+
+<br><br></div>
+
+
+<div class="slide hidden">
+<h1>
+  テキストの表示（教科書 p.74）
+</h1>
+
+<p>
+テキストを表示するにはtextSizeでテキストの大きさを指定し，textで文字を表示する．
+</p>
+
+<pre>//様々なデータ型の値を画面に表示する例
+int x = 100;
+float pi = 3.14f;
+char a = 'a';
+String str = "ABC";
+
+size(400, 400);
+textSize(16);
+
+background(255, 255, 255);
+fill(0, 0, 0);
+text(x, 100, 100);
+text(pi, 100, 150);
+text(a, 100, 200);
+text(str, 100, 250);
+</pre>
+
+<p>
+textは表示するテキストとして，最初の引数に数字や文字のデータ型を指定することができる．
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  テキストの表示（教科書 p.74）
+</h1>
+
+<p>
+textでは+演算子を使って様々なデータ型をつなげてテキスト表示することができる
+</p>
+
+<pre>//様々なデータ型をつなげてテキストとして表示する例
+int d = 180;
+float pi = 3.14f;
+String deg = "degrees";
+String rad = "radians";
+
+size(400, 200);
+textSize(16);
+
+background(255, 255, 255);
+fill(0, 0, 0);
+text(d + deg + "=" + pi + rad, 100, 100);
+</pre>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  練習(6-4)
+</h1>
+
+<p>
+簡易的なストップウォッチを作ろう
+</p>
+
+<p>
+ヒント：プログラムが起動してからの時間はmillis()によりミリ秒単位で得ることができる（教科書 p.102）
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/sixthexercise4/">サンプル</a>
+]
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  演習問題
+</h1>
+
+<ul>
+  <li>授業のトップページの「注意事項」を参照のこと</li>
+  <li>提出期限: <span class="imp">2017年7月18日(火) 13:10</span></li>
+
+</ul>
+
+<h3>問題1</h3>
+
+<p>
+壁打ちゲームを作ろう
+</p>
+<p>
+まずは，ラケットを作る．ラケットは画面下を，キーボード矢印キーで左右に動く．
+</p>
+
+<p>
+スケッチ名: Racket<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/racket/">サンプル</a>
+]
+</p>
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  演習問題
+</h1>
+
+<ul>
+  <li>授業のトップページの「注意事項」を参照のこと</li>
+  <li>提出期限: <span class="imp">2017年7月18日(火) 13:10</span></li>
+
+</ul>
+
+<h3>問題2</h3>
+
+<p>
+壁打ちゲームを作ろう
+</p>
+<p>
+ボールを作ろう．ボールは画面四隅のいずれかの壁にぶつかると反射する．
+</p>
+
+<p>
+スケッチ名: Ball<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/ball/">サンプル</a>
+]
+</p>
+<br><br></div>
+
+<div class="slide">
+<h1>
+  演習問題
+</h1>
+
+<ul>
+  <li>授業のトップページの「注意事項」を参照のこと</li>
+  <li>提出期限: <span class="imp">2017年7月18日(火) 13:10</span></li>
+
+</ul>
+
+<h3>問題3</h3>
+
+<p>
+壁打ちゲームを完成させよう<br>
+<br>
+前問題のラケットとボールを組み合わせ，ラケットに衝突するとボールをはじくようにしよう<br>
+テキスト表示を使用し得点を表示する．<br>
+ボールをラケットで跳ね返した場合は+1点，<br>
+ラケット背後の壁に当たってしまった場合には0点にする<br>
+<br>
+よりゲームをおもしろくするため独自の要素を加えても良い<br>
+例：ボールがだんだん速くなる，ボールがはずむ，などなど
+</p>
+
+<p>
+スケッチ名: RacketBall<br>
+スケッチフォルダ内の.pdeファイルのみを提出<br>
+</p>
+
+<p>
+[
+<a href="http://www.mlab.im.dendai.ac.jp/programming/intro/racketball/">サンプル</a>
+]
+</p>
+
+<br><br></div>
+
+<div class="slide hidden">
+<h1>
+  演習問題
+</h1>
+
+<h3>問題3 ヒント</h3>
+
+<p>
+ラケットとボールの衝突判定<br>
+<br>
+あまり厳密な方法ではないが，以下の方法でもよい
+</p>
+
+<p><img src="%E3%82%B3%E3%83%B3%E3%83%92%E3%82%9A%E3%83%A5%E3%83%BC%E3%82%BF%E3%83%95%E3%82%9A%E3%83%AD%E3%82%AF%E3%82%99%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%AF%E3%82%99I%EF%BC%88%EF%BC%96%EF%BC%89%20%2816%29_files/collision.png">
+</p>
+
+<br><br></div>
+
+
+
+<div class="toolbar" tabindex="0" style="display: block;"><div style="float: right; text-align: right"><span>slide 16/17</span></div><div style="text-align: left"><span style="color: rgb(240, 240, 240);">* </span><a href="http://www.w3.org/Talks/Tools/Slidy2/help/help.html" title="Navigate with mouse click, space bar, Cursor Left/Right, or Pg Up and Pg Dn. Use S and B to change font size.">help?</a> <a href="javascript:w3c_slidy.toggle_table_of_contents()" title="table of contents">contents?</a> </div></div></body></html>
