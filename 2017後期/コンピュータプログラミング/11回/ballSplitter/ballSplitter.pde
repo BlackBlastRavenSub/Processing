@@ -107,7 +107,7 @@ class Ball {
       }
     }
     fill(Hue, 100, 100);
-    System.out.println("X座標は"+this.X+"."+"Y座標は"+this.Y+"."+"Xの加速度は"+this.VX+"."+"Yの加速度は"+this.VY+"."+"ボールの直径は"+this.d+"."+"ボールの色は"+this.Hue+",100,100"+"."+"ボールの合計bound回数は"+this.totalBounds);
+    //System.out.println("X座標は"+this.X+"."+"Y座標は"+this.Y+"."+"Xの加速度は"+this.VX+"."+"Yの加速度は"+this.VY+"."+"ボールの直径は"+this.d+"."+"ボールの色は"+this.Hue+",100,100"+"."+"ボールの合計bound回数は"+this.totalBounds);
   }
   
   
