@@ -1,0 +1,64 @@
+Sun theSun;
+void setup() {
+  size(480, 480);
+  noStroke();
+  colorMode(HSB, 360, 100, 100);
+  theSun = new Sun(50, width / 2, height / 2);
+}
+
+void draw() {
+  background(0, 0, 100);
+  theSun.start();
+}
+
+class Sun {
+  float radius;
+  float x;
+  float y;
+  Earth theEarth;
+  Sun(float radius, float x, float y) {
+    this.radius=radius;
+    this.x=x;
+    this.y=y;
+    
+   theEarth =new Earth(10,0,0);
+  }
+  
+  void start(){
+  drawFigure();
+  move();
+  }
+  void drawFigure() {
+    theEarth.drawFigure();       // Earthオブジェクトに描画を指示
+    fill(30, 100, 100);
+    ellipse(x, y, radius, radius);         // 自分自身を描画
+  }
+  void move(){
+    theEarth.move();
+  }
+}
+
+class Earth {
+  float radius;
+  float x;
+  float y;
+  Earth(float radius, float x, float y) {
+    this.radius=radius;
+    this.x=x;
+    this.y=y;
+  }
+  
+  void start(){
+  drawFigure();
+  move();
+  }
+  
+  void move(){
+  
+  }
+
+  void drawFigure() {
+    fill(30, 100, 100);
+    ellipse(x, y, radius, radius);         // 自分自身を描画
+  }
+}
