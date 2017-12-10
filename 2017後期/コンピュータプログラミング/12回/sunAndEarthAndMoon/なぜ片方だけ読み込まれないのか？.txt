@@ -28,9 +28,9 @@ class Sun {
     move();
   }
   void drawFigure() {
-    theEarth.drawFigure();       // Earthã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«æç”»ã‚’æŒ‡ç¤º
+    theEarth.drawFigure();       // EarthƒIƒuƒWƒFƒNƒg‚É•`‰æ‚ğw¦
     fill(30, 100, 100);
-    ellipse(x, y, radius, radius);         // è‡ªåˆ†è‡ªèº«ã‚’æç”»
+    ellipse(x, y, radius, radius);         // ©•ª©g‚ğ•`‰æ
   }
   void move() {
     theEarth.move();
@@ -42,14 +42,14 @@ class Earth {
   float radius;
   float x;
   float y;
-  float orbitRadius=200;//å›è»¢åŠå¾„
+  float orbitRadius=200;//‰ñ“]”¼Œa
   float theta;
 
   Earth(float radius, float x, float y) {
     this.radius=radius;
     this.x=x;
     this.y=y;
-    theMoon =new Moon(10, this.x, this.y,this);
+    theMoon =new Moon(20, x, y);
   }
 
   void start() {
@@ -68,8 +68,7 @@ class Earth {
 
   void drawFigure() {
     fill(240, 100, 100);
-    ellipse(x, y, radius, radius);         // è‡ªåˆ†è‡ªèº«ã‚’æç”»
-    System.out.println("EARTH"+x+"."+y);
+    ellipse(x, y, radius, radius);         // ©•ª©g‚ğ•`‰æ
     theMoon.drawFigure();
   }
 }
@@ -78,15 +77,13 @@ class Moon{
   float radius;
   float x;
   float y;
-  float orbitRadius=50;//å›è»¢åŠå¾„
+  float orbitRadius=200;//‰ñ“]”¼Œa
   float theta;
-  Earth theEarth;
 
-  Moon(float radius, float x, float y,Earth theEarth) {
+  Moon(float radius, float x, float y) {
     this.radius=radius;
     this.x=x;
     this.y=y;
-    this.theEarth=theEarth;
   }
 
   void start() {
@@ -95,16 +92,16 @@ class Moon{
   }
 
   void move() {
-    theta+=4;
+    theta+=2;
     theta=theta%360;
     float rad = radians(theta);
     x = theEarth.x+orbitRadius * cos(rad);
     y = theEarth.y-orbitRadius * sin(rad);
+    //System.out.println(x);
   }
 
   void drawFigure() {
-    fill(60, 100, 100);
-    ellipse(x, y, radius, radius);         // è‡ªåˆ†è‡ªèº«ã‚’æç”»
-    System.out.println("MOON"+x+"."+y);
+    fill(240, 100, 100);
+    ellipse(x, y, radius, radius);         // ©•ª©g‚ğ•`‰æ
   }
 }
