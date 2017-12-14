@@ -44,7 +44,7 @@ class BlockBreak {
     // バーの生成
     bar = new Bar(width / 5, height / 100);
     //砲の生成
-    cannon = new Cannon(width / 10, height / 100);
+    cannon = new Cannon(width / 5, height / 100);
     // ブロック配列を生成
     block = new Block[blockNumY][blockNumX];
     // ブロックのサイズを決定
@@ -85,7 +85,6 @@ class BlockBreak {
         text("Game Over!!", width / 2, height / 2);
       } else {
         bar.collision(ball);                    // バーとの衝突判定
-        cannon.collision(ball);                 //キャノンとの衝突判定
       }
     } else {  // ブロックがすべて壊れているならば
       textSize(35);
@@ -281,57 +280,40 @@ class Bar {
 }
 
 class Cannon {
-  final int y = height - 70;    // キャノンの左上のy座標 (底から60で固定)
+  final int y = height-20;    // キャノンの左上のy座標 (底から20で固定)
   int sizeX;                    // キャノン全体の幅(なるべく5の倍数が良い)
   int sizeY;                    // キャノンの高さ
   int boxSizeX;                 // 分割した時の箱一つ分の幅(全体の1/5)
-  int[] boxX;   // キャノンの各区切りのx座標(左から0)
+  int[] boxX;   // バーの各区切りのx座標(左から0)
 
   Cannon(int sizeX, int sizeY) {
     this.sizeX = sizeX;
     this.sizeY = sizeY;
     boxSizeX = sizeX / 5;
-    boxX = new int[4];
+    boxX = new int[3];
   }
-
-  void collision(Ball ball) {
-    if ((ball.getY() >= (y - ball.getD() / 2)) &&
-      (ball.getY() <= (y + sizeY - ball.getD() / 2))) {  // ボールのy座標がキャノンと重なる時
-      if ((ball.getX() >= boxX[0]) && (ball.getX() <= boxX[1])) {  // 左Boxに衝突
-        ball.setVx(-1);
-        ball.setY(y - ball.getD() / 2);
-        ball.setVy(-ball.getVy());
-        //ball.setPenetrability(false);    // ボールのブロック貫通性なし
-      } else if ((ball.getX() > boxX[1]) && (ball.getX() <= boxX[2])) {   // 中心Boxに衝突
-        ball.setY(y - ball.getD() / 2);
-        ball.setVy(-ball.getVy());
-       // ball.setPenetrability(true);     // ボールのブロック貫通性あり
-      } else if ((ball.getX() > boxX[2]) && (ball.getX() <= boxX[3])) {   // 中心赤Boxに衝突
-        ball.setVx(1);
-        ball.setY(y - ball.getD() / 2);
-        ball.setVy(-ball.getVy());
-        //ball.setPenetrability(false);    // ボールのブロック貫通性なし
-      }
-    }
-  }
-
-  void blast() {
-  }
-
-  // キャノン表示メソッド
+  
+  
+  
   void show() {
-    boxX[0] = mouseX - 3 * (boxSizeX / 2);     // 左Boxの左上頂点のx座標
-    boxX[1] = mouseX - boxSizeX / 2;           // 中央Boxの左上頂点のx座標
-    boxX[2] = mouseX + boxSizeX / 2;           // 右Boxの左上頂点のx座標
-    boxX[3] = mouseX +boxSizeX+(boxSizeX / 2); // 右Boxの"右上"頂点のx座標
+    boxX[0] = mouseX - this.sizeX / 2;            // 左黒Boxの左上頂点のx座標
+    boxX[1] = mouseX - 3 * (boxSizeX / 2);     // 左白Boxの左上頂点のx座標
+    boxX[2] = mouseX - boxSizeX / 2;           // 中央赤Boxの左上頂点のx座標
+    /*boxX[3] = mouseX + boxSizeX / 2;           // 右白Boxの左上頂点のx座標
+    boxX[4] = mouseX + 3 * (boxSizeX /2);      // 右黒Boxの左上頂点のx座標
+    boxX[5] = mouseX + this.sizeX / 2;            // 右黒Boxの"右上"頂点のx座標*/
 
     // キャノンの描画
-    fill(255, 255, 255);
-    rect(boxX[0], y, boxSizeX, sizeY);        // 左Box
-    fill(255, 255, 255);
-    rect(boxX[1], y, boxSizeX, sizeY);        // 中央Box
-    fill(255, 255, 255);
-    rect(boxX[2], y, boxSizeX, sizeY);        // 右Box
+    fill(255, 0, 0);
+    rect(boxX[0], y, boxSizeX, sizeY);        // 左黒Box
+    fill(255, 0, 0);
+    rect(boxX[1], y, boxSizeX, sizeY);        // 左白Box
+    fill(255, 0, 0);
+    rect(boxX[2], y, boxSizeX, sizeY);        // 中央赤Box
+    /*fill(255, 255, 255);
+    rect(boxX[3], y, boxSizeX, sizeY);        // 右黒Box
+    fill(0, 0, 0);
+    rect(boxX[4], y, boxSizeX, sizeY);        // 右白Box*/
   }
 
   int getX(int i) {
