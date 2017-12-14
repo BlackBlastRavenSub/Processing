@@ -16,7 +16,7 @@ void setup() {
 void draw() {
   background(255, 255, 255);      // 背景の初期化(フラッシュ)
   blockBreak.draw();
-}
+} //<>//
 
 /**
  * ブロック崩し
@@ -282,7 +282,7 @@ class Block {
   int sizeX;                   // ブロックの幅
   int sizeY;                   // ブロックの高さ
   boolean broken;              // ブロックが破壊されているか否か
-  int damage;                  //ブロックが攻撃を何回喰らったか
+  int damage=0;                  //ブロックが攻撃を何回喰らったか
 
   // コンストラクタ
   Block(int x, int y, int sizeX, int sizeY) {
@@ -295,18 +295,18 @@ class Block {
 
   // ブロックの描画メソッド
   void show() {
-    switch(damage){
+    switch(damage) {
     case 0:
-    fill(0, 0, 255);       // ブロックの色は青(ノーダメージ)
-    break;
+      fill(0, 0, 255);       // ブロックの色は青(ノーダメージ)
+      break;
     case 1:
-    fill(150, 0, 200);       // ブロックの色は紫(小破)
-    break;
+      fill(150, 0, 200);       // ブロックの色は紫(小破)
+      break;
     case 2:
-    fill(240, 0, 255);       // ブロックの色はピンク(中破)
-    break;
+      fill(240, 0, 255);       // ブロックの色はピンク(中破)
+      break;
     }
-    
+
     rect(x, y, sizeX, sizeY);
   }
 
@@ -335,7 +335,7 @@ class Block {
 
     // 衝突による破壊判定
     if ((ball.getX() >= x) && (ball.getX() <= (x + sizeX)) && (ball.getY() >= y) && (ball.getY() <= (y + sizeY))) {
-      if (damage>3||ball.penetrability) {
+      if (this.damage>=2||ball.penetrability) {
         broken = true;
       }
       damage++;
