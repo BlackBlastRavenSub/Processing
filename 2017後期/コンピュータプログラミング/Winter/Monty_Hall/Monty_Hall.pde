@@ -1,9 +1,12 @@
 import controlP5.*;
 String stage;//今ゲームが何段階目まで進行しているか
 ControlP5 cp5;
+PFont TimesNewRoman;
+PFont Migu;
+PFont Migubold;
 Title title;
+Howto howto;
 Game game;
-
 void setup() {
   Door[] door;
   cp5=new ControlP5(this);
@@ -21,14 +24,18 @@ void setup() {
 
   size(1280, 640);
   fill(#000000);
-  PFont myFont = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
-  textFont(myFont);
+  TimesNewRoman = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
+  Migu=loadFont("migu-1m-regular-48.vlw");
+  Migubold=loadFont("migu-1m-bold-48.vlw"); 
+  textFont(TimesNewRoman);
   background(255, 255, 255);
-  title=new Title(); 
+  title=new Title();
+  howto=new Howto();
   game=new Game();
 
   stage="title";//タイトル画面
 }
+class Setup{}
 void draw() {
   background(255, 255, 255);
   if (stage.equals("title")) {
@@ -37,34 +44,64 @@ void draw() {
   if (stage.equals("play")) {
     game.stageStart();//ゲームスタート!
   }
+  if (stage.equals("howto")) {
+    howto.howto();//ゲームスタート!
+  }
   System.out.println(stage);
 }
 //なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
 void play() {
-  stage="main";//ゲーム本編
-  System.out.println("play");
-  stage="play";
-  cp5.remove("play");
-  cp5.remove("howto");
+title.play();
 }
 void howto() {
+title.howto();
 }
 
 class Title {
 
   Title() {
-    cp5.addButton("play")
-      .setLabel("START")
-      .setPosition(50, 50)
-      .setSize(300, 200);
-    //void start(){}
     cp5.addButton("howto")
       .setLabel("Howtoplay")
       .setPosition(350, 50)
       .setSize(300, 200);
     //void howto(){}
+    cp5.addButton("play")
+    
+      .setLabel("START")
+      .setPosition(50, 50)
+      .setSize(300, 200);
+    //void start(){}
+    
   }
   void title() {
+  }
+  void play() {
+  stage="play";
+  System.out.println("play");
+  cp5.remove("play");
+  cp5.remove("howto");
+}
+void howto() {
+  stage="howto";
+  System.out.println("howto");
+  cp5.remove("play");
+  cp5.remove("howto");
+}
+}
+class Howto {
+  int stage;//現在の段階
+  Howto() {  
+    howto();
+  }
+  void howto() {
+    textFont(Migu);
+    textSize(35);
+    String reference="皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？"
+    +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
+    +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
+    +"/nそして、あなたはもう一度箱を選び直すことができます"
+    +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです";
+    text(reference, 0, 40);
   }
 }
 class Game {
@@ -74,15 +111,14 @@ class Game {
     level=1;
   }
   void stageStart() {
-    switch (stage){
+    switch (stage) {
     case 1:
-    textSize(60);
-    text("STAGE"+level, 30, 400);
-    System.out.println("Hello?");
-    stage=2;
-    break;
+      textSize(60);
+      text("STAGE"+level, 30, 400);
+      System.out.println("Hello?");
+      stage=2;
+      break;
     case 2:
-    
     }
   }
   void stageend() {
