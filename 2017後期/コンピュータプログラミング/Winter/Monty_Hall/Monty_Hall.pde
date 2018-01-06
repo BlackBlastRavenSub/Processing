@@ -1,6 +1,4 @@
-import controlP5.*;
 String stage;//今ゲームが何段階目まで進行しているか
-ControlP5 cp5;
 PFont TimesNewRoman;
 PFont Migu;
 PFont Migubold;
@@ -9,7 +7,6 @@ Howto howto;
 Game game;
 void setup() {
   Door[] door;
-  cp5=new ControlP5(this);
 
   int id;
   int correct;
@@ -35,7 +32,8 @@ void setup() {
 
   stage="title";//タイトル画面
 }
-class Setup{}
+class Setup {
+}
 void draw() {
   background(255, 255, 255);
   if (stage.equals("title")) {
@@ -50,43 +48,19 @@ void draw() {
   System.out.println(stage);
 }
 //なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
-void play() {
-title.play();
-}
-void howto() {
-title.howto();
-}
 
 class Title {
+  Button startbutton;
 
   Title() {
-    cp5.addButton("howto")
-      .setLabel("Howtoplay")
-      .setPosition(350, 50)
-      .setSize(300, 200);
-    //void howto(){}
-    cp5.addButton("play")
-    
-      .setLabel("START")
-      .setPosition(50, 50)
-      .setSize(300, 200);
-    //void start(){}
-    
+    startbutton=new Button(1,1,1,1,1,button_glare_10);
   }
   void title() {
   }
   void play() {
-  stage="play";
-  System.out.println("play");
-  cp5.remove("play");
-  cp5.remove("howto");
-}
-void howto() {
-  stage="howto";
-  System.out.println("howto");
-  cp5.remove("play");
-  cp5.remove("howto");
-}
+  }
+  void howto() {
+  }
 }
 class Howto {
   int stage;//現在の段階
@@ -97,10 +71,10 @@ class Howto {
     textFont(Migu);
     textSize(35);
     String reference="皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？"
-    +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
-    +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
-    +"/nそして、あなたはもう一度箱を選び直すことができます"
-    +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです";
+      +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
+      +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
+      +"/nそして、あなたはもう一度箱を選び直すことができます"
+      +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです";
     text(reference, 0, 40);
   }
 }
@@ -132,5 +106,36 @@ class Door {
   boolean correct;//正解のドアか？
   Door(int id) {
     this.ID=id;
+  }
+}
+class Button {
+  int button_id;
+  int button_x;
+  int button_y;
+  int x_size;
+  int y_size;
+  PImage texture;
+  boolean click=false;
+
+  Button(int button_id,int button_x, int button_y, int x_size, int y_size, String texture) {
+    this.button_id=button_id;
+    this.button_x=button_x;
+    this.button_y=button_y;
+    this.x_size=x_size;
+    this.y_size=y_size;
+    this.texture = loadImage(texture);
+  }
+  void view() {
+    image(texture, 0, 0);
+    if (click) {
+      push();
+    }
+  }
+  void push() {
+    click=false;
+  }
+  void mouseClicked(){
+  click=true;
+  System.out.println("Button"+button_id+"Clicked!");
   }
 }
