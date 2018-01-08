@@ -51,11 +51,17 @@ void draw() {
 
 class Title {
   Button startbutton;
-
+  Button howtobutton;
+  Button quitbutton;
   Title() {
-    startbutton=new Button(1,1,1,1,1,button_glare_10);
+    startbutton=new Button(1, 1, 1, 120, 60, "button/glare/01.png","スタート！");
+    howtobutton=new Button(2, 120, 1, 120, 60, "button/glare/10.png","概要");
+    quitbutton=new Button(3, 120, 60, 120, 60, "button/glare/06.png","終了");
   }
   void title() {
+    startbutton.view();
+    howtobutton.view();
+    quitbutton.view();
   }
   void play() {
   }
@@ -115,9 +121,11 @@ class Button {
   int x_size;
   int y_size;
   PImage texture;
+  String text;
   boolean click=false;
 
-  Button(int button_id,int button_x, int button_y, int x_size, int y_size, String texture) {
+  //文字無し
+  Button(int button_id, int button_x, int button_y, int x_size, int y_size, String texture) {
     this.button_id=button_id;
     this.button_x=button_x;
     this.button_y=button_y;
@@ -125,8 +133,23 @@ class Button {
     this.y_size=y_size;
     this.texture = loadImage(texture);
   }
+  //文字あり
+  Button(int button_id, int button_x, int button_y, int x_size, int y_size, String texture, String text) {
+    this.button_id=button_id;
+    this.button_x=button_x;
+    this.button_y=button_y;
+    this.x_size=x_size;
+    this.y_size=y_size;
+    this.texture = loadImage(texture);
+    this.text=text;
+  }
   void view() {
-    image(texture, 0, 0);
+    image(texture, button_x, button_y, x_size, y_size);
+    if (text!=null) {
+      textSize(20);
+      textAlign(CENTER);
+      text(text, button_x+x_size/2, button_y+y_size/2);
+    }    
     if (click) {
       push();
     }
@@ -134,8 +157,8 @@ class Button {
   void push() {
     click=false;
   }
-  void mouseClicked(){
-  click=true;
-  System.out.println("Button"+button_id+"Clicked!");
+  void mouseClicked() {
+    click=true;
+    System.out.println("Button"+button_id+"Clicked!");
   }
 }
