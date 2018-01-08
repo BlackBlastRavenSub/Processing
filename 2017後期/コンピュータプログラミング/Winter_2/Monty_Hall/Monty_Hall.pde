@@ -82,8 +82,8 @@ class Game {
     for (int i=0; i<10; i++) {
       int j;
       for (j=0; j<10; j++) {
-        cp5.addButton("door_"+(i+j+1))
-          .setLabel("door_"+(i+j+1))
+        cp5.addButton("door_"+i+j+1)
+          .setLabel("door_"+i+j+1)
           .setPosition(10+i*50, 10+j*30)
           .setSize(40, 20);
       }
