@@ -7,7 +7,7 @@ Howto howto;
 Game game;
 void setup() {
   Door[] door;
-
+  size(1280, 640);
   int id;
   int correct;
   door=new Door[100];
@@ -54,18 +54,17 @@ class Title {
   Button howtobutton;
   Button quitbutton;
   Title() {
-    startbutton=new Button(1, 1, 1, 120, 60, "button/glare/01.png","スタート！");
-    howtobutton=new Button(2, 120, 1, 120, 60, "button/glare/10.png","概要");
-    quitbutton=new Button(3, 120, 60, 120, 60, "button/glare/06.png","終了");
+    startbutton=new Button("start", 1, 1, 120, 60, "button/glare/01.png", "スタート！");
+    howtobutton=new Button("howto", 120, 1, 120, 60, "button/glare/10.png", "概要");
+    quitbutton=new Button("quit", 120, 60, 120, 60, "button/glare/06.png", "終了");
+    startbutton.adding();
+    howtobutton.adding();
+    quitbutton.adding();
   }
   void title() {
     startbutton.view();
     howtobutton.view();
     quitbutton.view();
-  }
-  void play() {
-  }
-  void howto() {
   }
 }
 class Howto {
@@ -74,29 +73,36 @@ class Howto {
     howto();
   }
   void howto() {
+    //ゲームの概要
     textFont(Migu);
     textSize(35);
     String reference="皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？"
       +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
       +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
       +"/nそして、あなたはもう一度箱を選び直すことができます"
-      +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです";
+      +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです"
+      +"/nそんなわけで、今回はそれをモチーフにしたゲームを作成しました";
     text(reference, 0, 40);
   }
 }
 class Game {
   int level;//現在のステージ
   int stage;//現在の段階
+
+
   Game() {
     level=1;
   }
   void stageStart() {
     switch (stage) {
     case 1:
+      //Button nextpagebutton =new Button();
       textSize(60);
       text("STAGE"+level, 30, 400);
-      System.out.println("Hello?");
-      stage=2;
+      System.out.println("Stage"+level);
+      {
+        stage=2;
+      }      
       break;
     case 2:
     }
@@ -114,18 +120,20 @@ class Door {
     this.ID=id;
   }
 }
-class Button {
-  int button_id;
+public class Button {
+  //なんでJavaのButtonを取り扱うような標準クラスがないんだ？おかげで自作しなくちゃならない。こういうの全然やったことなかったから作業時間の殆どはここに持ってかれた・・・
+  String button_id;
   int button_x;
   int button_y;
   int x_size;
   int y_size;
   PImage texture;
   String text;
+  boolean visible=false; 
   boolean click=false;
 
   //文字無し
-  Button(int button_id, int button_x, int button_y, int x_size, int y_size, String texture) {
+  Button(String button_id, int button_x, int button_y, int x_size, int y_size, String texture) {
     this.button_id=button_id;
     this.button_x=button_x;
     this.button_y=button_y;
@@ -134,7 +142,7 @@ class Button {
     this.texture = loadImage(texture);
   }
   //文字あり
-  Button(int button_id, int button_x, int button_y, int x_size, int y_size, String texture, String text) {
+  Button(String button_id, int button_x, int button_y, int x_size, int y_size, String texture, String text) {
     this.button_id=button_id;
     this.button_x=button_x;
     this.button_y=button_y;
@@ -143,22 +151,40 @@ class Button {
     this.texture = loadImage(texture);
     this.text=text;
   }
+
+  void adding() {
+    visible=true;
+  }
+  void removeing() {
+    visible=false;
+  }
+
   void view() {
-    image(texture, button_x, button_y, x_size, y_size);
-    if (text!=null) {
-      textSize(20);
-      textAlign(CENTER);
-      text(text, button_x+x_size/2, button_y+y_size/2);
-    }    
-    if (click) {
-      push();
+    if (visible) {
+      image(texture, button_x, button_y, x_size, y_size);
+      if (text!=null) {
+        textSize(20);
+        textAlign(CENTER);
+        text(text, button_x+x_size/2, button_y+y_size/2);
+      }
+      if (mousePressed&&mouseX>=(button_x-x_size/2)&&mouseX<=(button_x+x_size/2)&&mouseY<=button_y+y_size/2&&mouseY>=button_y-y_size/2) {
+       click=true;
+       System.out.println("Button"+button_id+"が押されました！");
+       }
+      if (click) {
+        click(button_id);
+        click=false;
+      }
     }
   }
-  void push() {
-    click=false;
-  }
-  void mouseClicked() {
-    click=true;
-    System.out.println("Button"+button_id+"Clicked!");
+  /*void mousePressed() {
+    if (mouseX>=(button_x-x_size/2)&&mouseX<=(button_x+x_size/2)&&mouseY<=button_y+y_size/2&&mouseY>=button_y-y_size/2) {
+      click=true;
+      System.out.println("Button"+button_id+"が押されました！");
+    }
+  }*/
+
+  String click(String button_id) {
+    return button_id;
   }
 }
