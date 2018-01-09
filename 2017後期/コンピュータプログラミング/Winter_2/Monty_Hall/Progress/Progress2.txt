@@ -1,0 +1,100 @@
+import controlP5.*;
+ControlP5 cp5;
+String stage;//今ゲームが何段階目まで進行しているか
+PFont TimesNewRoman;
+PFont Migu;
+PFont Migubold;
+Howto howto;
+Game game;
+Door[] door;
+void setup() {
+  cp5=new ControlP5(this);
+  size(1280, 640);
+
+  size(1280, 640);
+  fill(#000000);
+  TimesNewRoman = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
+  Migu=loadFont("migu-1m-regular-48.vlw");
+  Migubold=loadFont("migu-1m-bold-48.vlw"); 
+  textFont(TimesNewRoman);
+  background(255, 255, 255);
+  howto=new Howto();
+  game=new Game();
+
+  stage="title";//タイトル画面
+}
+void draw() {
+  background(255, 255, 255);
+  if (stage.equals("play")) {
+    //game.stageStart();//ゲームスタート!
+  }
+  if (stage.equals("howto")) {
+    howto.howto();//ゲームスタート!
+  }
+  System.out.println(stage);
+}
+//なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
+class Howto {
+  int stage;//現在の段階
+  Howto() {  
+    howto();
+  }
+  void howto() {
+    //ゲームの概要
+    textFont(Migu);
+    textSize(35);
+    String reference="皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？"
+      +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
+      +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
+      +"/nそして、あなたはもう一度箱を選び直すことができます"
+      +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです"
+      +"/nそんなわけで、今回はそれをモチーフにしたゲームを作成しました";
+    text(reference, 0, 40);
+  }
+}
+class Game {
+  int id;
+  int correct;
+  int level;//現在のステージ
+  int stage;//現在の段階
+
+  Game() {
+    door=new Door[100];//ドアの作成
+    for (int i=0; i<100; i++) {
+      id=i+1;
+      door[i]=new Door(id);//ドアのID設定
+    }
+    for (int i=0; i<10; i++) {
+      int j;
+      for (j=0; j<10; j++) {
+        cp5.addButton("door_"+(i*10+j+1))
+          .setLabel("door_"+(i*10+j+1))
+          .setPosition(10+i*50, 10+j*30)
+          .setSize(40, 20);
+      }
+      j=0;
+    }
+
+    level=1;
+  }
+  void newgame() {    
+    correct=(int)random(100);
+    door[correct].correct=true;//正解のドアを決定する
+  }
+  void gameover() {
+  }
+}
+class Door {
+  final int ID;//ドアの固有ID
+  boolean correct;//正解のドアか？
+  Door(int id) {
+    this.ID=id;
+  }
+  void pushed() {
+    System.out.println("Door"+ID+"PUSH!");
+  }
+}
+
+void door_1() {
+  door[0].pushed();
+}
