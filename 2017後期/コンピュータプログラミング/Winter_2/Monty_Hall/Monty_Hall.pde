@@ -8,7 +8,7 @@ Howto howto;
 Game game;
 Door[] door;
 void setup() {
-  frameRate(5);
+  frameRate(2);
   cp5=new ControlP5(this);
   size(1280, 640);
 
@@ -78,7 +78,6 @@ class Game {
   void game() {
     if (stage.equals("start")) {
       startgame();
-      stage="nodooropen";
     }
     if (stage.equals("nodooropen")) {
       nodooropen();
@@ -102,8 +101,13 @@ class Game {
     stage="nodooropen";
   }
   void nodooropen() {
+    //ここなら反応する
+    if (door[0].push=true) {
+        stage="onedooropen";
+      }
     for (int i=0; i>100; i++) {
-      if (door[i].push) {
+      //ここだと反応しない
+      if (door[i].push=true) {
         stage="onedooropen";
       }
     }
