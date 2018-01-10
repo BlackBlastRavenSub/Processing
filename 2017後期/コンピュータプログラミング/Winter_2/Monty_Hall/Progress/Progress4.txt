@@ -1,6 +1,6 @@
-import controlP5.*; //<>// //<>// //<>//
+import controlP5.*;
 ControlP5 cp5;
-String stage;//今ゲームが何段階目まで進行しているか
+String stage;//���Q�[�������i�K�ڂ܂Ői�s���Ă��邩
 PFont TimesNewRoman;
 PFont Migu;
 PFont Migubold;
@@ -21,48 +21,46 @@ void setup() {
   background(255, 255, 255);
   howto=new Howto();
   game=new Game();
-  stage="title";//タイトル画面
+  stage="title";//�^�C�g�����
 }
 void draw() {
   background(255, 255, 255);
-  game.game();//ゲーム処理!
+  game.game();//�Q�[������!
   System.out.println(game.stage);
-  text("Score"+game.score, 600, 300);
 }
-//なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
+//�Ȃ�Title�N���X���ɓ����Ɣ������Ȃ����炱���ɒu����(�{����Title�N���X���ŊǗ�������)
 class Howto {
-  int stage;//現在の段階
+  int stage;//���݂̒i�K
   Howto() {  
     howto();
   }
   void howto() {
-    //ゲームの概要
+    //�Q�[���̊T�v
     textFont(Migu);
     textSize(35);
-    String reference="皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？"
-      +"\n例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。"
-      +"\nまず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。"
-      +"/nそして、あなたはもう一度箱を選び直すことができます"
-      +"/nその場合、箱を選び直した場合と選び直さなかった場合ではどちらのほうが当たる確率が高いか？と言うものです"
-      +"/nそんなわけで、今回はそれをモチーフにしたゲームを作成しました";
+    String reference="�F����́u�����e�B�E�z�[�����v�ƌĂ΂����̂𕷂������Ƃ�����܂����H"
+      +"\n�Ⴆ�΁E�E�E�F����̑O��3�̔�������A���̂���1�ɂ͂��󂪓����Ă��܂��B"
+      +"\n�܂��A�݂Ȃ���͂��̒�����1��I�т܂��B����ƁA���Ȃ����I��ł��Ȃ��n�Y���̔�����J���܂��B"
+      +"/n�����āA���Ȃ��͂�����x����I�ђ������Ƃ��ł��܂�"
+      +"/n���̏ꍇ�A����I�ђ������ꍇ�ƑI�ђ����Ȃ������ꍇ�ł͂ǂ���̂ق���������m�����������H�ƌ������̂ł�"
+      +"/n����Ȃ킯�ŁA����͂�������`�[�t�ɂ����Q�[�����쐬���܂���";
     text(reference, 0, 40);
   }
 }
 class Game {
   int id;
-  int correct;//正解のドアID
-  int level;//現在のステージ
-  String stage;//現在の段階
-  int select;//選ばれたドア
+  int correct;//�����̃h�AID
+  int level;//���݂̃X�e�[�W
+  String stage;//���݂̒i�K
+  int select;//�I�΂ꂽ�h�A
   int dummy;//
-  int score=0;
 
 
   Game() {
-    door=new Door[100];//ドアの作成
+    door=new Door[100];//�h�A�̍쐬
     for (int i=0; i<100; i++) {
       id=i+1;
-      door[i]=new Door(id);//ドアのID設定
+      door[i]=new Door(id);//�h�A��ID�ݒ�
     }
     for (int i=0; i<10; i++) {
       int j;
@@ -96,9 +94,10 @@ class Game {
     if (stage.equals("gameover")) {
       gameover();
     }
+    if (stage.equals("result")) {
+    }
   }
   void startgame() {
-    stage="startgame";
     System.out.println("startgame!");
     door[0].push=false;
     for (int i=0; i<100; i++) {
@@ -107,7 +106,7 @@ class Game {
       door[i].open=false;
     }
     correct=(int)random(100)+1;
-    door[correct].correct=true;//正解のドアを決定する
+    door[correct].correct=true;//�����̃h�A�����肷��
     stage="nodooropen";
   }
   void nodooropen() {
@@ -119,20 +118,20 @@ class Game {
     }
   }
   void onedooropen() {
-    text("あなたが選んだドアは"+select+"だ", 600, 100);
-    System.out.println("あなたが選んだドアは"+select+"だ");
+    text("���Ȃ����I�񂾃h�A��"+select+"��", 600, 100);
+    System.out.println("���Ȃ����I�񂾃h�A��"+select+"��");
     if (select==correct) {
       for (; dummy!=correct; ) {
         dummy=(int)random(100)+1;
       }
-      text("そして正解のドアは・・・"+select+"か"+dummy+"だ", 600, 140);
+      text("�����Đ����̃h�A�́E�E�E"+select+"��"+dummy+"��", 600, 140);
       for (int i=0; i<100; i++) {
         door[i].push=false;
         stage="finalselect";
       }
     }
     if (select!=correct) {
-      text("そして正解のドアは・・・"+select+"か"+correct+"だ", 600, 180);
+      text("�����Đ����̃h�A�́E�E�E"+select+"��"+correct+"��", 600, 180);
       for (int i=0; i<100; i++) {
         door[i].push=false;
         stage="finalselect";
@@ -140,18 +139,17 @@ class Game {
     }
   }
   void finalselect() {
-    text("あなたが選んだドアは"+select+"だ", 600, 100);
+    text("���Ȃ����I�񂾃h�A��"+select+"��", 600, 100);
     if (select==correct) {
-      text("そして正解のドアは・・・"+select+"か"+dummy+"だ", 600, 140);
+      text("�����Đ����̃h�A�́E�E�E"+select+"��"+dummy+"��", 600, 140);
     }
-    if (select!=correct) {
-      text("そして正解のドアは・・・"+select+"か"+correct+"だ", 600, 180);
+     if (select!=correct) {
+      text("�����Đ����̃h�A�́E�E�E"+select+"��"+correct+"��", 600, 180);
     }
-
+    
     for (int i=0; i<100; i++) {
       if (door[i].push==true) {
         if (door[i].ID==correct) {
-          score++;
           stage="gameclear";
         }
         if (door[i].ID!=correct) {
@@ -161,37 +159,23 @@ class Game {
     }
   }
   void gameclear() {
-    text("正解!"+select+"のドアが当たりだ!", 600, 180);
-    text("スペースキーで続行、", 600, 200);
-    if ((keyPressed == true) && (key == ' ')) {
-      startgame();
-    }
+    text("����!"+select+"�̃h�A�������肾!", 600, 180);
   }
   void gameover() {
-    text("残念・・正解のドアは"+correct+"だった", 600, 180);
-    reset();
-    startgame();
-  }
-  void reset() {
-    for (int i=0; i<100; i++) {
-      door[i].correct=false;
-      door[i].push=false;
-      door[i].open=false;
-      score=0;
-    }
+    text("�c�O�E�E�����̃h�A��"+correct+"������", 600, 180);
   }
 }
 class Door {
-  final int ID;//ドアの固有ID
-  boolean correct;//正解のドアか？
-  boolean push;//押されたか？
-  boolean open;//開かれているか？
+  final int ID;//�h�A�̌ŗLID
+  boolean correct;//�����̃h�A���H
+  boolean push;//�����ꂽ���H
+  boolean open;//�J����Ă��邩�H
   Door(int id) {
-    //ID設定
+    //ID�ݒ�
     this.ID=id;
-    correct=false;//正解のドアか？
-    push=false;//押されたか？
-    open=false;//開かれているか？
+    correct=false;//�����̃h�A���H
+    push=false;//�����ꂽ���H
+    open=false;//�J����Ă��邩�H
   }
   void pushed() {
     push=true;
