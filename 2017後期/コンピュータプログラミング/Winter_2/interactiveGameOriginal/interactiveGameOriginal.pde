@@ -19,6 +19,7 @@ String highscore;
 
 
 String lines[];
+String heap;
 
 
 Howto howto;
@@ -28,7 +29,13 @@ Door[] door;
 void setup() {
   //frameRate(2);
   cp5=new ControlP5(this);
+
+  lines = loadStrings("highscore.txt");
+  for (String val : lines) {
+    heap=(val);
+  }
   outfile = createWriter("highscore.txt");
+  highscore= heap;
   size(1280, 640);
   fill(#000000);
   TimesNewRoman = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
@@ -39,18 +46,13 @@ void setup() {
   howto=new Howto();
   game=new Game();
   stage="title";//タイトル画面
-
-  lines = loadStrings("highscore.txt");
-  for (String val : lines) {
-    highscore=(val);
-  }
 }
 void draw() {
   background(255, 255, 255);
   game.game();//ゲーム処理!
   System.out.println(game.stage);
-  text("Score"+game.score, 600, 300);
-   text("highScore"+highscore, 600, 350);
+  text("Score"+game.score, 600, 350);
+  text("highScore"+highscore, 600, 400);
 }
 //なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
 class Howto {
@@ -129,7 +131,7 @@ class Game {
       door[i].push=false;
       door[i].open=false;
     }
-    correct=(int)random(100)+1;
+    correct=(int)random(99)+1;
     door[correct].correct=true;//正解のドアを決定する
     stage="nodooropen";
   }
@@ -185,13 +187,22 @@ class Game {
   }
   void gameclear() {
     text("正解!"+correct+"のドアが当たりだ!", 600, 180);
-    text("スペースキーで続行、", 600, 250);
+    text("スペースキーで続行\nQキーでハイスコアを保存して終了", 600, 250);
     if ((keyPressed == true) && (key == ' ')) {
       startgame();
     }
     if ((keyPressed == true) && (key == 'q'||key == 'Q')) {
-      outfile.println(highscore);
-      outfile.flush();
+      if (highscore==null) {
+        highscore="0";
+      }
+      int highscoredata = Integer.parseInt(highscore);
+      if (score>highscoredata) {
+        outfile.println(score);
+        outfile.flush();
+      } else {
+        outfile.println(highscore);
+        outfile.flush();
+      }
       outfile.close();
       exit();
     }
