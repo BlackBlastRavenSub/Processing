@@ -1,4 +1,4 @@
-/*皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？ //<>// //<>//
+/*皆さんは「モンティ・ホール問題」と呼ばれるものを聞いたことがありますか？ //<>// //<>// //<>//
  例えば・・・皆さんの前に3つの箱があり、そのうち1つにはお宝が入っています。
  まず、みなさんはその中から1つを選びます。すると、あなたが選んでいないハズレの箱が一つ開きます。
  そして、あなたはもう一度箱を選び直すことができます
@@ -6,8 +6,8 @@
  そんなわけで、今回はそれをモチーフにしたゲームを作成しました
  今回、あなたの前には100枚のドアがあります。正解のドアは一つだけです。
  まずあなたがドアを1枚選ぶと、もう一枚のドアが示されます。そして正解のドアは2つの内のどちらかです
- ・・・あなたは何回連続で正解のドアを開けられますか!?*/
-import controlP5.*; //<>//
+ ・・・あなたは何回連続で正解のドアを開けられますか!?(失敗した場合ハイスコアは記録されません!)*/
+import controlP5.*;
 ControlP5 cp5;
 PrintWriter outfile;
 
@@ -34,8 +34,11 @@ void setup() {
   for (String val : lines) {
     heap=(val);
   }
-  outfile = createWriter("highscore.txt");
+
   highscore= heap;
+  if (highscore==null) {
+    highscore="0";
+  }
   size(1280, 640);
   fill(#000000);
   TimesNewRoman = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
@@ -192,9 +195,7 @@ class Game {
       startgame();
     }
     if ((keyPressed == true) && (key == 'q'||key == 'Q')) {
-      if (highscore==null) {
-        highscore="0";
-      }
+      outfile = createWriter("highscore.txt");
       int highscoredata = Integer.parseInt(highscore);
       if (score>highscoredata) {
         outfile.println(score);
