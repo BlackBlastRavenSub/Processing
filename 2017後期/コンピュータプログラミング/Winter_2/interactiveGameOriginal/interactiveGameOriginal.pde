@@ -7,49 +7,28 @@
  今回、あなたの前には100枚のドアがあります。正解のドアは一つだけです。
  まずあなたがドアを1枚選ぶと、もう一枚のドアが示されます。そして正解のドアは2つの内のどちらかです
  ・・・あなたは何回連続で正解のドアを開けられますか!?*/
-import controlP5.*;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import controlP5.*; //<>//
 ControlP5 cp5;
+PrintWriter outfile;
+
 String stage;//今ゲームが何段階目まで進行しているか
 PFont TimesNewRoman;
 PFont Migu;
 PFont Migubold;
-int highscore;
+String highscore;
+
+
+String lines[];
+
+
 Howto howto;
 Game game;
+
 Door[] door;
 void setup() {
-  File file = new File("highscore.txt");
-   try{
-      if (file.createNewFile()){
-        System.out.println("ファイルの作成に成功しました");
-      }else{
-        System.out.println("ファイルの作成に失敗しました");
-      }
-    }catch(IOException e){
-      System.out.println(e);
-    }
-  try {
-    FileReader filereader = new FileReader(file);
-    int load = filereader.read();
-    highscore=load;
-    System.out.println((char)load);
-    filereader.close();
-  }
-  catch(FileNotFoundException e) {
-    System.out.println(e);
-  }
-  catch(IOException e) {
-    System.out.println(e);
-  }
-
   //frameRate(2);
   cp5=new ControlP5(this);
-  size(1280, 640);
-
+  outfile = createWriter("highscore.txt");
   size(1280, 640);
   fill(#000000);
   TimesNewRoman = loadFont("TimesNewRomanPS-BoldMT-48.vlw");
@@ -60,13 +39,18 @@ void setup() {
   howto=new Howto();
   game=new Game();
   stage="title";//タイトル画面
-} //<>//
+
+  lines = loadStrings("highscore.txt");
+  for (String val : lines) {
+    highscore=(val);
+  }
+}
 void draw() {
   background(255, 255, 255);
   game.game();//ゲーム処理!
   System.out.println(game.stage);
   text("Score"+game.score, 600, 300);
-  text("highscore"+highscore, 600, 350);
+   text("highScore"+highscore, 600, 350);
 }
 //なんかTitleクラス内に入れると反応しないからここに置いた(本当はTitleクラス内で管理したい)
 class Howto {
@@ -200,16 +184,28 @@ class Game {
     }
   }
   void gameclear() {
-    text("正解!"+select+"のドアが当たりだ!", 600, 180);
+    text("正解!"+correct+"のドアが当たりだ!", 600, 180);
     text("スペースキーで続行、", 600, 250);
     if ((keyPressed == true) && (key == ' ')) {
       startgame();
     }
+    if ((keyPressed == true) && (key == 'q'||key == 'Q')) {
+      outfile.println(highscore);
+      outfile.flush();
+      outfile.close();
+      exit();
+    }
   }
   void gameover() {
     text("残念・・正解のドアは"+correct+"だった", 600, 180);
-    reset();
-    startgame();
+    text("Qキーで終了、スペースキーで再挑戦", 600, 250);
+    if ((keyPressed == true) && (key == ' ')) {
+      reset();
+      startgame();
+    }
+    if ((keyPressed == true) && (key == 'q'||key == 'Q')) {
+      exit();
+    }
   }
   void reset() {
     for (int i=0; i<100; i++) {
